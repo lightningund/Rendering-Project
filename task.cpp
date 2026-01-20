@@ -1,5 +1,5 @@
-#include "task.h"
-#include <assert.h>
+#include "task.hpp"
+#include <cassert>
 
 #define MAX_TASKS 16
 typedef Task* TaskHeap[MAX_TASKS];

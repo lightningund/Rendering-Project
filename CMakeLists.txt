@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10.0)
 project(Template VERSION 0.1.0 LANGUAGES CXX)
 
-add_executable(${PROJECT_NAME} main.cpp cell.cpp vec.cpp map.cpp ray.cpp)
+add_executable(${PROJECT_NAME} main.cpp cell.cpp vec.cpp map.cpp ray.cpp task.cpp)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 
