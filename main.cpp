@@ -8,6 +8,7 @@
 #include "textures.hpp"
 #include "task.hpp"
 #include <iostream>
+#include <optional>
 #include <SFML/Graphics.hpp>
 
 extern sf::Image buffer;
@@ -52,10 +53,11 @@ float radians(float deg) {
 }
 
 void read_btns() {
+	// TODO
 	// Board Button
-	if (btn_rising & (1 << 15)) {
-		wall_textured = !wall_textured;
-	}
+	// if (btn_rising & (1 << 15)) {
+	// 	wall_textured = !wall_textured;
+	// }
 }
 
 void draw_render() {
@@ -69,7 +71,7 @@ void draw_render() {
 					display_set_pixel(x, y, cols[x].col);
 				}
 			} else if (cols[x].prev_extent < y && cols[x].prev_extent < (HEIGHT / 2) - y) {
-				display_set_pixel(x, y, 0);
+				display_set_pixel(x, y, BLACK);
 			}
 		}
 	}
@@ -86,7 +88,8 @@ void draw_render() {
 	});
 }
 
-uint8_t get_ray_wall(const Ray* ray) {
+std::optional<uint8_t> get_ray_wall(const Ray* ray) {
+	if (ray->cell_hit == nullptr) return {};
 	return cell_wall_section(*ray->cell_hit->walls, ray->cell_wall);
 }
 
@@ -95,18 +98,23 @@ void update_column(const Ray ray, int x) {
 	static const float H4 = HEIGHT / 4;
 	static const float W2 = WIDTH / 2;
 
-	uint8_t ray_wall = get_ray_wall(&ray);
+	auto wall = get_ray_wall(&ray);
+
+	std::cout << "Got ray intersection\n";
 
 	// If it's fake then just blank it out and leave
-	if (cell_wall_is_fake(ray_wall, 0)) {
+	if (!wall || cell_wall_is_fake(wall.value(), 0)) {
 		cols[x].extent = WIDTH;
 		return;
 	}
+
+	auto ray_wall = wall.value();
 
     // float a = atan2(x - (WIDTH / 2), ang_height);
     // float d = cos(a) * ray.dist;
     // float diff = (HEIGHT / 4) - (atan(1 / d) * 200);
 	float diff = H4 - 200 * atan(sqrt(1 + ((x - W2) * (x - W2) * ang_height_sq_inv)) / ray.dist);
+
 	cols[x].extent = (int)diff;
 	float shade = 1 - (3 * ray.dist / WIDTH);
 	// Make the shade more pronounced
@@ -191,7 +199,9 @@ void update_cells() {
 }
 
 void move_cam() {
-	Vec stick = sample_stick();
+	// TODO
+	// Vec stick = sample_stick();
+	Vec stick{};
 	// Center the range
 	stick.x -= 0x800;
 	stick.y -= 0x800;
@@ -250,16 +260,25 @@ int main() {
 	ang_height_sq = ang_height * ang_height;
 	ang_height_sq_inv = 1.0 / ang_height_sq;
 
+	std::cout << "Going to main loop\n";
+
 	while (window.isOpen()) {
 		event_loop(window);
 
 		update_rays();
+		std::cout << "Updated Rays\n";
 		update_columns();
+		std::cout << "Updated Columns\n";
 		draw_render();
+		std::cout << "Rendered Main Area\n";
 		update_cells();
+		std::cout << "Updated Cells\n";
 		draw_map();
+		std::cout << "Rendered Map\n";
 		move_cam();
+		std::cout << "Moved Camera\n";
 		gen_cell();
+		std::cout << "Generated New Cells\n";
 
 		window.clear();
 
