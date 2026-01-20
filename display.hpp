@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <SFML/Graphics/Color.hpp>
 
 struct ScreenRect {
 	uint8_t ax;
@@ -9,31 +10,25 @@ struct ScreenRect {
 	uint8_t by;
 };
 
-struct Color {
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
-};
-
 #define DISPLAY_SIZE 96
 #define DISP_BUF_SIZE 128
 
-typedef uint16_t color_t;
+using color_t = sf::Color;
 
-#define RGB_TO_DEV(r, g, b) ((((r) >> 3) << 11) | (((g) >> 2) << 5) | ((b) >> 3))
+#define RGB_TO_DEV(r, g, b) (sf::Color((r), (g), (b)))
 
 static inline color_t color_mult(color_t src, float scalar) {
-	color_t red = ((src >> 11) & 0x1F) * scalar;
-	color_t green = ((src >> 5) & 0x3F) * scalar;
-	color_t blue = (src & 0x1F) * scalar;
-	return red << 11 | green << 5 | blue;
+	uint8_t red = src.r * scalar;
+	uint8_t green = src.g * scalar;
+	uint8_t blue = src.b * scalar;
+	return RGB_TO_DEV(red, green, blue);
 }
 
 static inline color_t fast_color_scale(color_t src, int div) {
-	color_t red = ((src >> 11) & 0x1F) / div;
-	color_t green = ((src >> 5) & 0x3F) / div;
-	color_t blue = (src & 0x1F) / div;
-	return red << 11 | green << 5 | blue;
+	uint8_t red = src.r / div;
+	uint8_t green = src.g / div;
+	uint8_t blue = src.b / div;
+	return RGB_TO_DEV(red, green, blue);
 }
 
 static const color_t BLACK = RGB_TO_DEV(0, 0, 0);

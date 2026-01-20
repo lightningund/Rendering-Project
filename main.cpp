@@ -29,18 +29,22 @@ int main() {
 
 	display_init();
 
-	sf::Texture screen;
-	screen.create(DISP_BUF_SIZE, DISP_BUF_SIZE);
+	sf::Texture tex;
+	tex.create(DISP_BUF_SIZE, DISP_BUF_SIZE);
+	tex.setSmooth(false);
 
 	display_set_pixel(40, 40, RGB_TO_DEV(255, 255, 255));
+
+	sf::Sprite spr{tex};
+	spr.setScale(5, 5);
 
 	while (window.isOpen()) {
 		event_loop(window);
 
 		window.clear();
 
-		screen.update(buffer);
-		window.draw(sf::Sprite(screen));
+		tex.update(buffer);
+		window.draw(spr);
 
 		window.display();
 	}

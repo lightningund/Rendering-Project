@@ -10,7 +10,7 @@ static color_t textures[] = {RED, GREEN, BLUE, WHITE};
 
 // Takes in an x and y (at the correct map scale) and draws them to the screen
 // There are special transforms that are done here so it's convenient to have it in one place
-static void draw_on_map(int x, int y, uint16_t color) {
+static void draw_on_map(int x, int y, color_t color) {
 	display_set_pixel(y, x + (DISPLAY_SIZE / 2), color);
 }
 
@@ -34,11 +34,11 @@ static void draw_cell(const Cell c) {
 		wa[0] *= grid_size;
 		wa[1] *= grid_size;
 
-		uint16_t wall_col = textures[cell_wall_texture(*c.walls, i)];
+		color_t wall_col = textures[cell_wall_texture(*c.walls, i)];
 
 		// If it's not there then we'll just draw it black
 		if (!cell_wall_is_there(*c.walls, i) || cell_wall_is_fake(*c.walls, i)) {
-			wall_col = 0;
+			wall_col = BLACK;
 		}
 
 		for (int i = 0; i < grid_size; ++i) {
@@ -54,7 +54,7 @@ void map_draw(Vec cam) {
 	}
 
 	// Clear the previous player position off the map
-	draw_on_map(prev_map_pos.x, prev_map_pos.y, 0);
+	draw_on_map(prev_map_pos.x, prev_map_pos.y, BLACK);
 
 	// Render the player on the map
 	Vec map_pos = world_to_map(cam);
