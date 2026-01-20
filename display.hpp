@@ -46,8 +46,6 @@ static const color_t BLUE = RGB_TO_DEV(0, 0, 255);
 static const color_t PINK = RGB_TO_DEV(136, 24, 96);
 static const color_t ORANGE = RGB_TO_DEV(248, 228, 16);
 
-extern color_t pixels[DISP_BUF_SIZE * DISP_BUF_SIZE];
-
 // Initialize the display, must be called first
 void display_init();
 // Clear the screen (does not affect the framebuffer)
