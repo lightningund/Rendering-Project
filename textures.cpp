@@ -1,5 +1,5 @@
-#include "textures.h"
-#include "display.h"
+#include "textures.hpp"
+#include "display.hpp"
 
 #define TEX_SIZE 16
 #define PALETTE_BITS 2
@@ -8,10 +8,10 @@
 #define TEXEL_MASK (PALETTE_SIZE - 1)
 #define NUM_ELEM (TEX_SIZE * TEX_SIZE / TEX_PER_ELEM)
 
-struct _Texture {
+struct Texture {
 	color_t palette[PALETTE_SIZE];
 	uint32_t tex[NUM_ELEM];
-} typedef Texture;
+};
 
 static const Texture checker = {
 	.palette = {GRAY, WHITE, RED, GREEN},
