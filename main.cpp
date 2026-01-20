@@ -27,7 +27,7 @@ struct Column {
 	color_t col;
 	uint8_t tex_id;
 	float t;
-	int shade;
+	float shade;
 };
 
 #define NUM_TEX 4
@@ -52,21 +52,14 @@ float radians(float deg) {
 	return (deg / 180.0) * PI;
 }
 
-void read_btns() {
-	// TODO
-	// Board Button
-	// if (btn_rising & (1 << 15)) {
-	// 	wall_textured = !wall_textured;
-	// }
-}
-
 void draw_render() {
 	for (int y = 0; y < HEIGHT / 2; ++y) {
 		for (int x = 0; x < WIDTH; ++x) {
 			if (cols[x].extent < y && cols[x].extent < (HEIGHT / 2) - y) {
 				if (wall_textured) {
 					color_t color = get_tex(cols[x].tex_id, cols[x].extent, y, cols[x].t);
-					display_set_pixel(x, y, fast_color_scale(color, cols[x].shade));
+					// display_set_pixel(x, y, fast_color_scale(color, 1 / cols[x].shade));
+					display_set_pixel(x, y, color_mult(color, cols[x].shade));
 				} else {
 					display_set_pixel(x, y, cols[x].col);
 				}
@@ -114,7 +107,7 @@ void update_column(const Ray ray, int x) {
 	float diff = H4 - 200 * atan(sqrt(1 + ((x - W2) * (x - W2) * ang_height_sq_inv)) / ray.dist);
 
 	cols[x].extent = (int)diff;
-	float shade = 1 - (3 * ray.dist / WIDTH);
+	float shade = CELL_SIZE / ray.dist;
 	// Make the shade more pronounced
 	shade *= shade;
 	// shade *= shade;
@@ -123,7 +116,8 @@ void update_column(const Ray ray, int x) {
 	// Limit it just in case
 	if (shade > 1) shade = 1;
 	if (wall_textured) {
-		cols[x].shade = 1 / shade;
+		// cols[x].shade = 1 / shade;
+		cols[x].shade = shade;
 		cols[x].tex_id = cell_wall_texture(ray_wall, 0) % NUM_TEX;
 		cols[x].t = ray.t;
 	} else {
