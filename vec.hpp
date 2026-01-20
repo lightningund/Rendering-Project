@@ -1,8 +1,15 @@
 #pragma once
 
+#include <concepts>
+
 struct Vec {
 	float x;
 	float y;
+
+	constexpr Vec() = default;
+
+	template <typename T>
+	constexpr Vec(const T& x, const T& y) : x{static_cast<float>(x)}, y{static_cast<float>(y)} {}
 
 	static Vec from_heading(const float angle);
 
@@ -13,13 +20,13 @@ struct Vec {
 	constexpr Vec operator/(const float s) const;
 	constexpr float operator*(const Vec& other) const;
 
-	constexpr float sq_len() const;
-	constexpr float len() const;
-	constexpr float sq_dist(const Vec& b) const;
-	constexpr float dist(const Vec& b) const;
-	constexpr float cross(const Vec& b) const;
+	float sq_len() const;
+	float len() const;
+	float sq_dist(const Vec& b) const;
+	float dist(const Vec& b) const;
+	float cross(const Vec& b) const;
 
-	constexpr Vec normalize();
+	Vec normalize() const;
 };
 
 [[deprecated]] Vec vec_from_heading(const float angle);

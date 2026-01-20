@@ -26,39 +26,36 @@ constexpr float Vec::operator*(const Vec& b) const {
 	return (x * b.x) + (y * b.y);
 }
 
-constexpr float Vec::sq_len() const {
+float Vec::sq_len() const {
 	return (x * x) + (y * y);
 }
-constexpr float Vec::len() const {
+float Vec::len() const {
 	return hypot(x, y);
 }
-constexpr float Vec::sq_dist(const Vec& b) const {
+float Vec::sq_dist(const Vec& b) const {
 	return ((*this) - b).sq_len();
 }
-constexpr float Vec::dist(const Vec& b) const {
+float Vec::dist(const Vec& b) const {
 	return ((*this) - b).len();
 }
-constexpr float Vec::cross(const Vec& b) const {
+float Vec::cross(const Vec& b) const {
 	return (x * b.y) - (y * b.x);
 }
 
-constexpr Vec Vec::normalize() {
+Vec Vec::normalize() const {
 	auto scale = len();
 	return (*this) / scale;
 }
 
 Vec vec_from_heading(const float angle) {
 	return Vec{
-		.x = sin(angle),
-		.y = cos(angle)
+		sin(angle),
+		cos(angle)
 	};
 }
 
 Vec vec_negate(const Vec v) {
-	return Vec{
-		.x = -v.x,
-		.y = -v.y
-	};
+	return Vec{-v.x, -v.y};
 }
 
 Vec vec_normalize(const Vec v) {
@@ -67,22 +64,22 @@ Vec vec_normalize(const Vec v) {
 
 Vec vec_scale(const Vec v, const float s) {
 	return Vec{
-		.x = v.x * s,
-		.y = v.y * s
+		v.x * s,
+		v.y * s
 	};
 }
 
 Vec vec_add(const Vec a, const Vec b) {
 	return Vec{
-		.x = a.x + b.x,
-		.y = a.y + b.y
+		a.x + b.x,
+		a.y + b.y
 	};
 }
 
 Vec vec_sub(const Vec a, const Vec b) {
 	return Vec{
-		.x = a.x - b.x,
-		.y = a.y - b.y
+		a.x - b.x,
+		a.y - b.y
 	};
 }
 

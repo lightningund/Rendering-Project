@@ -1,11 +1,8 @@
-#include "ray.h"
-#include "defines.h"
+#include "ray.hpp"
+#include "defines.hpp"
 
 void ray_cast_cell(Ray* ray, Cell* cell) {
-	Vec offset = (Vec) {
-		.x = cell->x,
-		.y = cell->y
-	};
+	Vec offset = Vec{cell->x, cell->y};
 
 	Vec scaled_pos = vec_scale(ray->pos, 1.0 / CELL_SIZE);
 
