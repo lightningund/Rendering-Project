@@ -1,21 +1,19 @@
 #pragma once
 
-#include <stdbool.h>
-#include <stdint.h>
-#include "sam.h"
+#include <cstdint>
 
-struct _ScreenRect {
+struct ScreenRect {
 	uint8_t ax;
 	uint8_t ay;
 	uint8_t bx;
 	uint8_t by;
-} typedef ScreenRect;
+};
 
-struct _Color {
+struct Color {
 	uint8_t r;
 	uint8_t g;
 	uint8_t b;
-} typedef RGB_Color;
+};
 
 #define DISPLAY_SIZE 96
 #define DISP_BUF_SIZE 128

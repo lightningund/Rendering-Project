@@ -1,8 +1,8 @@
-#include "map.h"
-#include "cell.h"
-#include "display.h"
-#include "textures.h"
-#include <string.h>
+#include "map.hpp"
+#include "cell.hpp"
+#include "display.hpp"
+#include "textures.hpp"
+#include <string>
 
 static Vec prev_map_pos;
 
@@ -61,7 +61,7 @@ void map_draw(Vec cam) {
 	prev_map_pos = map_pos;
 	draw_on_map(map_pos.x, map_pos.y, PINK);
 
-	display_update_section((ScreenRect) {
+	display_update_section(ScreenRect{
 		.ax = 16,
 		.ay = 96 / 2,
 		.bx = 112,

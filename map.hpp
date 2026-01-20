@@ -1,4 +1,4 @@
 #pragma once
-#include "vec.h"
+#include "vec.hpp"
 
 void map_draw(Vec cam);

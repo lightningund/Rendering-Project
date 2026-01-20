@@ -1,5 +1,5 @@
 #pragma once
-#include "display.h"
+#include "display.hpp"
 
 // Goes through these in order while turning clockwise (if looking from above)
 // static color_t textures[] = {RED, GREEN, BLUE, WHITE};
