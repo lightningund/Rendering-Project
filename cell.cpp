@@ -1,6 +1,6 @@
 #include "cell.hpp"
 #include "defines.hpp"
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 
 const Vec CellWallOffsets[4][2] = {
