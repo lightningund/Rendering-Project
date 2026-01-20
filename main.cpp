@@ -100,8 +100,6 @@ void update_column(const Ray ray, int x) {
 
 	auto wall = get_ray_wall(&ray);
 
-	std::cout << "Got ray intersection\n";
-
 	// If it's fake then just blank it out and leave
 	if (!wall || cell_wall_is_fake(wall.value(), 0)) {
 		cols[x].extent = WIDTH;
@@ -199,21 +197,19 @@ void update_cells() {
 }
 
 void move_cam() {
-	// TODO
-	// Vec stick = sample_stick();
+	using KB = sf::Keyboard;
+
 	Vec stick{};
-	// Center the range
-	stick.x -= 0x800;
-	stick.y -= 0x800;
-	// Stick deadzone
-	if (fabs(stick.x) < 0x100) stick.x = 0;
-	if (fabs(stick.y) < 0x100) stick.y = 0;
-	// Scale the range
-	stick = vec_scale(stick, 1.0 / 0x800);
+
+	if (KB::isKeyPressed(KB::Up) || KB::isKeyPressed(KB::W)) stick.y = -1;
+	if (KB::isKeyPressed(KB::Down) || KB::isKeyPressed(KB::S)) stick.y = 1;
+	if (KB::isKeyPressed(KB::Left) || KB::isKeyPressed(KB::A)) stick.x = -1;
+	if (KB::isKeyPressed(KB::Right) || KB::isKeyPressed(KB::D)) stick.x = 1;
+
 	// Turn the camera
-	cam_ang += stick.x / 16;
+	cam_ang += stick.x / 100;
 	// Move the camera
-	cam_pos = vec_add(cam_pos, vec_scale(vec_from_heading(cam_ang), -stick.y));
+	cam_pos = vec_add(cam_pos, vec_scale(vec_from_heading(cam_ang), -stick.y / 10));
 }
 
 void gen_cell() {
@@ -234,7 +230,7 @@ void event_loop(sf::Window& window) {
 }
 
 int main() {
-	sf::RenderWindow window{sf::VideoMode{800, 800}, "[TITLE]"};
+	sf::RenderWindow window{sf::VideoMode{768, 768}, "[TITLE]"};
 	window.setFramerateLimit(144);
 
 	display_init();
@@ -246,7 +242,7 @@ int main() {
 	display_set_pixel(40, 40, RGB_TO_DEV(255, 255, 255));
 
 	sf::Sprite spr{tex};
-	spr.setScale(5, 5);
+	spr.setScale(8, 8);
 
 	init_grid();
 
@@ -260,25 +256,16 @@ int main() {
 	ang_height_sq = ang_height * ang_height;
 	ang_height_sq_inv = 1.0 / ang_height_sq;
 
-	std::cout << "Going to main loop\n";
-
 	while (window.isOpen()) {
 		event_loop(window);
 
 		update_rays();
-		std::cout << "Updated Rays\n";
 		update_columns();
-		std::cout << "Updated Columns\n";
 		draw_render();
-		std::cout << "Rendered Main Area\n";
 		update_cells();
-		std::cout << "Updated Cells\n";
 		draw_map();
-		std::cout << "Rendered Map\n";
 		move_cam();
-		std::cout << "Moved Camera\n";
 		gen_cell();
-		std::cout << "Generated New Cells\n";
 
 		window.clear();
 
