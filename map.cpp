@@ -11,16 +11,16 @@ static color_t textures[] = {RED, GREEN, BLUE, WHITE};
 // Takes in an x and y (at the correct map scale) and draws them to the screen
 // There are special transforms that are done here so it's convenient to have it in one place
 static void draw_on_map(int x, int y, color_t color) {
-	display_set_pixel(y, x + (DISPLAY_SIZE / 2), color);
+	display_set_pixel(y, x + (HEIGHT / 2), color);
 }
 
 // Takes in an x and y in world space and converts them into x and y in map space
 static Vec world_to_map(Vec world_pos) {
-	return vec_scale(world_pos, ((float)DISPLAY_SIZE - 1) / CELL_GRID_DIM_Y / CELL_SIZE);
+	return vec_scale(world_pos, ((float)HEIGHT - 1) / CELL_GRID_DIM_Y / CELL_SIZE);
 }
 
 static void draw_cell(const Cell c) {
-	float grid_size = (DISPLAY_SIZE) / CELL_GRID_DIM_Y;
+	float grid_size = (HEIGHT) / CELL_GRID_DIM_Y;
 
 	int ax = c.x * grid_size;
 	int ay = c.y * grid_size;

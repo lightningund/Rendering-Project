@@ -13,8 +13,6 @@
 
 extern sf::Image buffer;
 
-#define WIDTH 96
-#define HEIGHT 96
 // Field of View (in degrees)
 #define FOV 110.0
 
@@ -224,19 +222,19 @@ void event_loop(sf::Window& window) {
 }
 
 int main() {
-	sf::RenderWindow window{sf::VideoMode{768, 768}, "[TITLE]"};
+	sf::RenderWindow window{sf::VideoMode{512, 512}, "[TITLE]"};
 	window.setFramerateLimit(144);
 
 	display_init();
 
 	sf::Texture tex;
-	tex.create(DISP_BUF_SIZE, DISP_BUF_SIZE);
+	tex.create(WIDTH, HEIGHT);
 	tex.setSmooth(false);
 
 	display_set_pixel(40, 40, RGB_TO_DEV(255, 255, 255));
 
 	sf::Sprite spr{tex};
-	spr.setScale(8, 8);
+	// spr.setScale(4, 4);
 
 	init_grid();
 

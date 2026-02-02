@@ -6,7 +6,7 @@ sf::Image buffer;
 
 // Initialize the display, must be called first
 void display_init() {
-	buffer.create(DISP_BUF_SIZE, DISP_BUF_SIZE);
+	buffer.create(WIDTH, HEIGHT);
 }
 
 // Clear the screen (does not affect the framebuffer)

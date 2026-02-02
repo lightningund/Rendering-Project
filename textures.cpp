@@ -137,6 +137,6 @@ static color_t get_texel(const Texture* tex, uint8_t x, uint8_t y) {
 
 color_t get_tex(uint8_t tex_id, int extent, int sc_y, float t) {
 	uint8_t x = (int)(t * TEX_SIZE);
-	uint8_t y = ((sc_y - extent) * TEX_SIZE) / ((DISPLAY_SIZE / 2) - extent * 2);
+	uint8_t y = ((sc_y - extent) * TEX_SIZE) / ((HEIGHT / 2) - extent * 2);
 	return get_texel(textures[tex_id], x, y);
 }

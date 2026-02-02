@@ -1,5 +1,6 @@
 #pragma once
 
+#include "defines.hpp"
 #include <cstdint>
 #include <SFML/Graphics/Color.hpp>
 
@@ -9,9 +10,6 @@ struct ScreenRect {
 	uint8_t bx;
 	uint8_t by;
 };
-
-#define DISPLAY_SIZE 96
-#define DISP_BUF_SIZE 128
 
 using color_t = sf::Color;
 
