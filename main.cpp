@@ -158,7 +158,7 @@ void update_ray(Ray* ray) {
 void update_rays() {
 	for (int i = 0; i < WIDTH; ++i) {
 		rays[i].pos = cam_pos;
-		rays[i].dir = vec_from_heading(cam_ang + atan2(i - WIDTH / 2, ang_height));
+		rays[i].dir = Vec::from_heading(cam_ang + atan2(i - WIDTH / 2, ang_height));
 		update_ray(&rays[i]);
 	}
 }
@@ -193,7 +193,7 @@ void move_cam() {
 	// Turn the camera
 	cam_ang += stick.x / 100;
 	// Move the camera
-	cam_pos = vec_add(cam_pos, vec_scale(vec_from_heading(cam_ang), -stick.y / 10));
+	cam_pos = cam_pos + (Vec::from_heading(cam_ang) * (-stick.y / 10));
 }
 
 void gen_cell() {

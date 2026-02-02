@@ -9,23 +9,51 @@ struct Vec {
 	template <typename T>
 	constexpr Vec(const T& x, const T& y) : x{static_cast<float>(x)}, y{static_cast<float>(y)} {}
 
+	template <typename T>
+	constexpr Vec(const T& x) : x{static_cast<float>(x)}, y{static_cast<float>(x)} {}
+
 	static Vec from_heading(const float angle);
 
 	constexpr Vec operator-() const {
 		return { -x, -y };
 	}
 
-	constexpr Vec operator+(const Vec& b) const {
-		return { x + b.x, y + b.y };
+	constexpr Vec& operator+=(const Vec& b) {
+		x += b.x;
+		y += b.y;
+		return *this;
 	}
-	constexpr Vec operator-(const Vec& b) const {
-		return { x - b.x, y - b.y };
+	constexpr Vec& operator-=(const Vec& b) {
+		x -= b.x;
+		y -= b.y;
+		return *this;
 	}
-	constexpr Vec operator*(const float s) const {
-		return { x * s, y * s };
+	constexpr Vec& operator*=(const float s) {
+		x *= s;
+		y *= s;
+		return *this;
 	}
-	constexpr Vec operator/(const float s) const {
-		return { x / s, y / s };
+	constexpr Vec& operator/=(const float s) {
+		x /= s;
+		y /= s;
+		return *this;
+	}
+
+	friend constexpr Vec operator+(Vec a, const Vec& b) {
+		a += b;
+		return a;
+	}
+	friend constexpr Vec operator-(Vec a, const Vec& b) {
+		a -= b;
+		return a;
+	}
+	friend constexpr Vec operator*(Vec a, const float b) {
+		a *= b;
+		return a;
+	}
+	friend constexpr Vec operator/(Vec a, const float b) {
+		a /= b;
+		return a;
 	}
 
 	constexpr float operator*(const Vec& b) const {
@@ -40,16 +68,3 @@ struct Vec {
 
 	Vec normalize() const;
 };
-
-[[deprecated]] Vec vec_from_heading(const float angle);
-[[deprecated]] Vec vec_negate(const Vec v);
-[[deprecated]] Vec vec_normalize(const Vec v);
-[[deprecated]] Vec vec_scale(const Vec v, const float s);
-[[deprecated]] Vec vec_add(const Vec a, const Vec b);
-[[deprecated]] Vec vec_sub(const Vec a, const Vec b);
-[[deprecated]] float vec_sq_len(const Vec v);
-[[deprecated]] float vec_len(const Vec v);
-[[deprecated]] float vec_dot(const Vec a, const Vec b);
-[[deprecated]] float vec_sq_dist(const Vec a, const Vec b);
-[[deprecated]] float vec_dist(const Vec a, const Vec b);
-[[deprecated]] float vec_cross(const Vec a, const Vec b);
