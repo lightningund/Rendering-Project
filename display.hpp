@@ -34,4 +34,4 @@ static const color_t ORANGE = RGB_TO_DEV(248, 228, 16);
 // Initialize the display, must be called first
 void display_init();
 // Update a single pixel in the framebuffer
-void display_set_pixel(uint8_t x, uint8_t y, color_t color);
+void display_set_pixel(size_t x, size_t y, color_t color);

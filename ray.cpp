@@ -11,7 +11,7 @@ void ray_cast_cell(Ray* ray, Cell* cell) {
 		// Only continue if the wall is either there or fake
 		if (!(is_fake || cell_wall_is_there(*cell->walls, i))) continue;
 		// If the wall is fake but we already hit something, show the thing behind it
-		if (is_fake && ray->cell_hit != NULL) continue;
+		if (is_fake && ray->cell_hit != nullptr) continue;
 
 		Vec wall_delta = CellWallOffsets[i][1] - CellWallOffsets[i][0];
 

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stdbool.h>
-#include <stdint.h>
 #include "vec.hpp"
 #include "defines.hpp"
 
@@ -53,53 +51,53 @@ extern uint16_t TBG_Y;
 #define WALL_FAKE_BIT 0b0010
 
 // Does the bit tomfoolery to get just the bits representing the wall at an index
-static inline constexpr GridCell cell_wall_section(const GridCell wall, const idx_t dir) {
+constexpr GridCell cell_wall_section(const GridCell wall, const idx_t dir) {
 	return (wall >> (CellWallBits * dir)) & 0xF;
 }
 
 // Gets the texture bits of the wall section
-static inline constexpr uint8_t cell_wall_texture(const GridCell wall, const idx_t dir) {
+constexpr uint8_t cell_wall_texture(const GridCell wall, const idx_t dir) {
 	return cell_wall_section(wall, dir) >> 2;
 }
 
 // Tests the fake bit of the wall section
-static inline constexpr bool cell_wall_is_fake(const GridCell wall, const idx_t dir) {
+constexpr bool cell_wall_is_fake(const GridCell wall, const idx_t dir) {
 	return (cell_wall_section(wall, dir) & WALL_FAKE_BIT) != 0;
 }
 
 // Tests the "there" bit of the wall section
-static inline constexpr bool cell_wall_is_there(const GridCell wall, const idx_t dir) {
+constexpr bool cell_wall_is_there(const GridCell wall, const idx_t dir) {
 	return (cell_wall_section(wall, dir) & WALL_THERE_BIT) != 0;
 }
 
 // Sets the fake bit of the wall section
-static inline constexpr void make_cell_wall_fake(GridCell* wall, const idx_t dir) {
+constexpr void make_cell_wall_fake(GridCell* wall, const idx_t dir) {
 	*wall |= WALL_FAKE_BIT << (CellWallBits * dir);
 }
 
 // Unsets the fake bit of the wall section
-static inline constexpr void make_cell_wall_real(GridCell* wall, const idx_t dir) {
+constexpr void make_cell_wall_real(GridCell* wall, const idx_t dir) {
 	*wall &= (GridCell)(-1) ^ (WALL_FAKE_BIT << (CellWallBits * dir));
 }
 
 // Sets the "there" bit of the wall section
-static inline constexpr void make_cell_wall_there(GridCell* wall, const idx_t dir) {
+constexpr void make_cell_wall_there(GridCell* wall, const idx_t dir) {
 	*wall |= WALL_THERE_BIT << (CellWallBits * dir);
 }
 
 // Unsets the "there" bit of the wall section
-static inline constexpr void make_cell_wall_gone(GridCell* wall, const idx_t dir) {
+constexpr void make_cell_wall_gone(GridCell* wall, const idx_t dir) {
 	*wall &= (GridCell)(-1) ^ (WALL_THERE_BIT << (CellWallBits * dir));
 }
 
-static inline constexpr void set_cell_wall_texture(GridCell* wall, const idx_t dir, TexID tex) {
+constexpr void set_cell_wall_texture(GridCell* wall, const idx_t dir, TexID tex) {
 	// Clear the texture first
 	*wall &= (GridCell)(-1) ^ (0b1100 << (CellWallBits * dir));
 	// Set the actual texture
 	*wall |= tex << (2 + CellWallBits * dir);
 }
 
-static inline constexpr bool inside_cell(const Cell c, const Vec p) {
+constexpr bool inside_cell(const Cell c, const Vec p) {
 	return
 		((c.x + 1) * CELL_SIZE) > p.x &&
 		(c.x * CELL_SIZE) < p.x &&

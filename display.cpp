@@ -1,6 +1,5 @@
 #include "display.hpp"
 #include <SFML/Graphics/Image.hpp>
-#include <SFML/Graphics/Texture.hpp>
 
 sf::Image buffer;
 
@@ -9,6 +8,6 @@ void display_init() {
 	buffer.create(WIDTH, HEIGHT);
 }
 
-void display_set_pixel(uint8_t x, uint8_t y, color_t color) {
+void display_set_pixel(size_t x, size_t y, color_t color) {
 	buffer.setPixel(x, y, color);
 }
