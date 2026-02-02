@@ -5,27 +5,6 @@ Vec Vec::from_heading(const float angle) {
 	return { sin(angle), cos(angle) };
 }
 
-constexpr Vec Vec::operator-() const {
-	return { -x, -y };
-}
-
-constexpr Vec Vec::operator+(const Vec& b) const {
-	return { x + b.x, y + b.y };
-}
-constexpr Vec Vec::operator-(const Vec& b) const {
-	return { x - b.x, y - b.y };
-}
-constexpr Vec Vec::operator*(const float s) const {
-	return { x * s, y * s };
-}
-constexpr Vec Vec::operator/(const float s) const {
-	return { x / s, y / s };
-}
-
-constexpr float Vec::operator*(const Vec& b) const {
-	return (x * b.x) + (y * b.y);
-}
-
 float Vec::sq_len() const {
 	return (x * x) + (y * y);
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <concepts>
-
 struct Vec {
 	float x;
 	float y;
@@ -13,12 +11,26 @@ struct Vec {
 
 	static Vec from_heading(const float angle);
 
-	constexpr Vec operator-() const;
-	constexpr Vec operator+(const Vec& other) const;
-	constexpr Vec operator-(const Vec& other) const;
-	constexpr Vec operator*(const float s) const;
-	constexpr Vec operator/(const float s) const;
-	constexpr float operator*(const Vec& other) const;
+	constexpr Vec operator-() const {
+		return { -x, -y };
+	}
+
+	constexpr Vec operator+(const Vec& b) const {
+		return { x + b.x, y + b.y };
+	}
+	constexpr Vec operator-(const Vec& b) const {
+		return { x - b.x, y - b.y };
+	}
+	constexpr Vec operator*(const float s) const {
+		return { x * s, y * s };
+	}
+	constexpr Vec operator/(const float s) const {
+		return { x / s, y / s };
+	}
+
+	constexpr float operator*(const Vec& b) const {
+		return (x * b.x) + (y * b.y);
+	}
 
 	float sq_len() const;
 	float len() const;

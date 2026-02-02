@@ -16,7 +16,7 @@ static void draw_on_map(int x, int y, color_t color) {
 
 // Takes in an x and y in world space and converts them into x and y in map space
 static Vec world_to_map(Vec world_pos) {
-	return vec_scale(world_pos, ((float)HEIGHT - 1) / CELL_GRID_DIM_Y / CELL_SIZE);
+	return world_pos * (((float)HEIGHT - 1) / CELL_GRID_DIM_Y / CELL_SIZE);
 }
 
 static void draw_cell(const Cell c) {
@@ -60,11 +60,4 @@ void map_draw(Vec cam) {
 	Vec map_pos = world_to_map(cam);
 	prev_map_pos = map_pos;
 	draw_on_map(map_pos.x, map_pos.y, PINK);
-
-	display_update_section(ScreenRect{
-		.ax = 16,
-		.ay = 96 / 2,
-		.bx = 112,
-		.by = 96
-	});
 }

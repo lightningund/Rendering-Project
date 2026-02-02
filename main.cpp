@@ -69,13 +69,6 @@ void draw_render() {
 	for (int i = 0; i < WIDTH; ++i) {
 		cols[i].prev_extent = cols[i].extent;
 	}
-
-	display_update_section(ScreenRect{
-		.ax = 16,
-		.ay = 0,
-		.bx = 112,
-		.by = 96 / 2
-	});
 }
 
 std::optional<uint8_t> get_ray_wall(const Ray* ray) {
