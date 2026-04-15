@@ -1,8 +1,3 @@
-// Build the real project
-// cmake -B "./build/MSVC" -G "Visual Studio 17 2022"
-// Create the compile_commands.json for clangd
-// cmake -B "./build/Makefile" -G "MinGW Makefiles"
-
 #include "vec.hpp"
 #include "ray.hpp"
 #include "cell.hpp"

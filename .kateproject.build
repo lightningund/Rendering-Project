@@ -8,7 +8,7 @@
             "name": "Target Set",
             "targets": [
                 {
-                    "build_cmd": "cmake -B \"./build/MSVC\" --config Debug",
+                    "build_cmd": "cmake -B \"./build/MSVC\" -G \"Visual Studio 17 2022\"",
                     "name": "Debug",
                     "run_cmd": "./Debug/Renderer.exe"
                 }

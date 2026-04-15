@@ -2,7 +2,7 @@
 	"version": 8,
 	"configurePresets": [
 		{
-			"name": "MSVC_17_2022_x64",
+			"name": "MSVC",
 			"displayName": "VS 2022 x64",
 			"description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
 			"generator": "Visual Studio 17 2022",
@@ -25,15 +25,15 @@
 	],
 	"buildPresets": [
 		{
-			"name": "MSVC_17_2022_x64-debug",
+			"name": "MSVC-debug",
 			"displayName": "VS 2022 x64 - Debug",
-			"configurePreset": "MSVC_17_2022_x64",
+			"configurePreset": "MSVC",
 			"configuration": "Debug"
 		},
 		{
-			"name": "MSVC_17_2022_x64-release",
+			"name": "MSVC-release",
 			"displayName": "VS 2022 x64 - Release",
-			"configurePreset": "MSVC_17_2022_x64",
+			"configurePreset": "MSVC",
 			"configuration": "Release"
 		},
 		{
