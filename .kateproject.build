@@ -8,9 +8,19 @@
             "name": "Target Set",
             "targets": [
                 {
-                    "build_cmd": "cmake -B \"./build/MSVC\" -G \"Visual Studio 17 2022\"",
-                    "name": "Debug",
-                    "run_cmd": "./Debug/Renderer.exe"
+                    "build_cmd": "cmake -S . -B ./build/Makefile -G \"MinGW Makefiles\"",
+                    "name": "Create CMDs",
+                    "run_cmd": ""
+                },
+                {
+                    "build_cmd": "cmake -S . -B ./build -G \"Visual Studio 17 2022\" -T host=x64 -A x64",
+                    "name": "Setup MSVC",
+                    "run_cmd": ""
+                },
+                {
+                    "build_cmd": "cmake --build ./build --config Debug",
+                    "name": "MSVC Debug",
+                    "run_cmd": "./build/Debug/Renderer.exe"
                 }
             ]
         }

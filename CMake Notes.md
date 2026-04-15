@@ -57,3 +57,31 @@ So it seems like I need the following three commands:
 - To build with MSVC:
 	- "C:\Program Files\CMake\bin\cmake.EXE" --build "D:/#Documents/#CompSci/C++/Rendering Project/build/MSVC" --config Debug
 	- Worked!
+
+Now to try simplifying them:
+**Assume we are in "D:/#Documents/#CompSci/C++/Rendering Project", aka the main project directory**
+### "C:\Program Files\CMake\bin\cmake.EXE" -S "D:/#Documents/#CompSci/C++/Rendering Project" -B "D:/#Documents/#CompSci/C++/Rendering Project/build/Makefile" -G "MinGW Makefiles"
+- cmake -S "D:/#Documents/#CompSci/C++/Rendering Project" -B "D:/#Documents/#CompSci/C++/Rendering Project/build/Makefile" -G "MinGW Makefiles"
+- cmake -S . -B "D:/#Documents/#CompSci/C++/Rendering Project/build/Makefile" -G "MinGW Makefiles"
+- cmake -S . -B "./build/Makefile" -G "MinGW Makefiles"
+- cmake -S . -B ./build/Makefile -G "MinGW Makefiles"
+Working!
+
+### "C:\Program Files\CMake\bin\cmake.EXE" "-DCMAKE_INSTALL_PREFIX=D:/#Documents/#CompSci/C++/Rendering Project/build/install/MSVC" -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -S "D:/#Documents/#CompSci/C++/Rendering Project" -B "D:/#Documents/#CompSci/C++/Rendering Project/build/MSVC" -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake "-DCMAKE_INSTALL_PREFIX=D:/#Documents/#CompSci/C++/Rendering Project/build/install/MSVC" -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -S "D:/#Documents/#CompSci/C++/Rendering Project" -B "D:/#Documents/#CompSci/C++/Rendering Project/build/MSVC" -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake "-DCMAKE_INSTALL_PREFIX=D:/#Documents/#CompSci/C++/Rendering Project/build/install/MSVC" -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -S . -B "./build/MSVC" -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake "-DCMAKE_INSTALL_PREFIX=./build/install/MSVC" -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -S . -B "./build/MSVC" -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake "-DCMAKE_INSTALL_PREFIX=./build/install/MSVC" -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -S . -B ./build/MSVC -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake -DCMAKE_INSTALL_PREFIX=./build/install/MSVC -DCMAKE_C_COMPILER=cl.exe -DCMAKE_CXX_COMPILER=cl.exe -S . -B ./build/MSVC -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake -DCMAKE_INSTALL_PREFIX=./build/install/MSVC -DCMAKE_CXX_COMPILER=cl.exe -S . -B ./build/MSVC -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake -DCMAKE_CXX_COMPILER=cl.exe -S . -B ./build/MSVC -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake -S . -B ./build/MSVC -G "Visual Studio 17 2022" -T host=x64 -A x64
+- cmake -S . -B ./build -G "Visual Studio 17 2022" -T host=x64 -A x64
+Working!
+
+### "C:\Program Files\CMake\bin\cmake.EXE" --build "D:/#Documents/#CompSci/C++/Rendering Project/build/MSVC" --config Debug
+- cmake --build "D:/#Documents/#CompSci/C++/Rendering Project/build/MSVC" --config Debug
+- cmake --build "./build/MSVC" --config Debug
+- cmake --build ./build/MSVC --config Debug
+- cmake --build ./build --config Debug
+Working!
