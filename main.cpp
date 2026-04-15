@@ -1,14 +1,19 @@
+// Build the real project
+// cmake -B "./build/MSVC" -G "Visual Studio 17 2022"
+// Create the compile_commands.json for clangd
+// cmake -B "./build/Makefile" -G "MinGW Makefiles"
+
 #include "vec.hpp"
 #include "ray.hpp"
 #include "cell.hpp"
 #include "display.hpp"
-// #include "thumbstick.hpp"
 #include "map.hpp"
 #include "defines.hpp"
 #include "textures.hpp"
 #include <iostream>
 #include <optional>
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 extern sf::Image buffer;
 
@@ -94,7 +99,7 @@ void update_column(const Ray ray, int x) {
     // float a = atan2(x - (WIDTH / 2), ang_height);
     // float d = cos(a) * ray.dist;
     // float diff = (HEIGHT / 4) - (atan(1 / d) * 200);
-	float diff = H4 - 200 * atan(sqrt(1 + ((x - W2) * (x - W2) * ang_height_sq_inv)) / ray.dist);
+	float diff = H4 - 200 * std::atan(std::sqrt(1 + ((x - W2) * (x - W2) * ang_height_sq_inv)) / ray.dist);
 
 	cols[x].extent = (int)diff;
 	float shade = CELL_SIZE / ray.dist;

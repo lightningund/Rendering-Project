@@ -14,6 +14,13 @@
 				"CMAKE_C_COMPILER": "cl.exe",
 				"CMAKE_CXX_COMPILER": "cl.exe"
 			}
+		},
+		{
+			"name": "Makefile",
+			"displayName": "MinGW",
+			"description": "MinGW makefile",
+			"generator": "MinGW Makefiles",
+			"binaryDir": "${sourceDir}/build/${presetName}"
 		}
 	],
 	"buildPresets": [
@@ -28,6 +35,11 @@
 			"displayName": "VS 2022 x64 - Release",
 			"configurePreset": "MSVC_17_2022_x64",
 			"configuration": "Release"
+		},
+		{
+			"name": "Makefile",
+			"displayName": "Create makefiles",
+			"configurePreset": "Makefile"
 		}
 	]
 }

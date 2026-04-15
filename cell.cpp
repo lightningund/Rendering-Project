@@ -156,6 +156,7 @@ void generate_cell() {
 		avail_walls |= (1 << 3);
 	}
 
+	// Remove the walls that are already gone from the list of available choices
 	for (int i = 0; i < 4; ++i) {
 		if (!cell_wall_is_fake(*TBG, i) && !cell_wall_is_there(*TBG, i)) {
 			avail_walls &= (uint8_t)(-1) ^ (1 << i);
@@ -168,8 +169,6 @@ void generate_cell() {
 
 	// Pick a wall to remove
 	if (avail_walls != 0) {
-		uint8_t rng;
-
 		// Very convoluted way of determining a random wall from the available ones
 		int num_options = 0;
 		for (int i = 0; i < 4; ++i) {
@@ -178,7 +177,7 @@ void generate_cell() {
 			}
 		}
 
-		rng = rand() % num_options;
+		uint8_t rng = rand() % num_options;
 
 		for (int i = 0; i < 4; ++i) {
 			if (avail_walls & (1 << i)) {

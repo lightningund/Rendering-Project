@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.10.0)
-project(Template VERSION 0.1.0 LANGUAGES CXX)
+project(Renderer VERSION 0.1.0 LANGUAGES CXX)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(${PROJECT_NAME} main.cpp cell.cpp vec.cpp map.cpp ray.cpp textures.cpp display.cpp)
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 
 # Need to define SFML_STATIC as a preprocessor def
 target_compile_definitions(${PROJECT_NAME} PUBLIC SFML_STATIC)
