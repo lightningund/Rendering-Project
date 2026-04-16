@@ -1,7 +1,5 @@
-Build the real project
-`cmake -B "./build/MSVC" -G "Visual Studio 17 2022"`
-Create the compile_commands.json for clangd
-`cmake -B "./build/Makefile" -G "MinGW Makefiles"`
+# CMAKE FREAKS THE FUCK OUT WITH # CHARACTERS
+# ALWAYS USE `CS_ALIAS`
 
 # VSC
 On selecting mingw:
@@ -97,3 +95,9 @@ Also worth noting, it makes the compile commands
 Ok now what if we try building it?
 `cmake --build ./build/Ninja --config Debug`
 Alright, it gives proper errors. Will have to check if it properly compiles when there aren't errors lol
+
+Ah, it didn't find the SFML stuff. Damn
+Nevermind, got it!
+
+# SFML
+Ok to build SFML, you go to `C++/@LIBS/SFML_SRC` in the terminal and run `cmake --build ./build` and then you copy over `include` from the root and `libs` from build both to `C++/@LIBS/Ninja`

@@ -185,14 +185,15 @@ void update_cells() {
 }
 
 void move_cam() {
-	using KB = sf::Keyboard;
+	namespace KB = sf::Keyboard;
+	using Key = KB::Key;
 
 	Vec stick{};
 
-	if (KB::isKeyPressed(KB::Up) || KB::isKeyPressed(KB::W)) stick.y = -1;
-	if (KB::isKeyPressed(KB::Down) || KB::isKeyPressed(KB::S)) stick.y = 1;
-	if (KB::isKeyPressed(KB::Left) || KB::isKeyPressed(KB::A)) stick.x = -1;
-	if (KB::isKeyPressed(KB::Right) || KB::isKeyPressed(KB::D)) stick.x = 1;
+	if (KB::isKeyPressed(Key::Up) || KB::isKeyPressed(Key::W)) stick.y = -1;
+	if (KB::isKeyPressed(Key::Down) || KB::isKeyPressed(Key::S)) stick.y = 1;
+	if (KB::isKeyPressed(Key::Left) || KB::isKeyPressed(Key::A)) stick.x = -1;
+	if (KB::isKeyPressed(Key::Right) || KB::isKeyPressed(Key::D)) stick.x = 1;
 
 	// Turn the camera
 	cam_ang += stick.x / 100;
@@ -207,24 +208,21 @@ void gen_cell() {
 }
 
 void event_loop(sf::Window& window) {
-	sf::Event event;
-	while (window.pollEvent(event)) {
-		switch (event.type) {
-			case sf::Event::Closed:
-				window.close();
-				break;
+	while (const std::optional event = window.pollEvent()) {
+		// "close requested" event: we close the window
+		if (event->is<sf::Event::Closed>()) {
+			window.close();
 		}
 	}
 }
 
 int main() {
-	sf::RenderWindow window{sf::VideoMode{512, 512}, "[TITLE]"};
+	sf::RenderWindow window{sf::VideoMode({512, 512}), "[TITLE]"};
 	window.setFramerateLimit(144);
 
 	display_init();
 
-	sf::Texture tex;
-	tex.create(WIDTH, HEIGHT);
+	sf::Texture tex{sf::Vector2u(WIDTH, HEIGHT)};
 	tex.setSmooth(false);
 
 	display_set_pixel(40, 40, RGB_TO_DEV(255, 255, 255));
