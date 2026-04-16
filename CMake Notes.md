@@ -85,3 +85,15 @@ Working!
 - cmake --build ./build/MSVC --config Debug
 - cmake --build ./build --config Debug
 Working!
+
+# Ninja
+Ok wtf is this. Let's try a modified version of the setup command:
+`cmake -S . -B ./build/Ninja -G Ninja -T host=x64 -A x64`
+Ok it doesn't like the platform specification
+`cmake -S . -B ./build/Ninja -G Ninja`
+That worked. It's not using cl tho, does that matter?
+Also worth noting, it makes the compile commands
+
+Ok now what if we try building it?
+`cmake --build ./build/Ninja --config Debug`
+Alright, it gives proper errors. Will have to check if it properly compiles when there aren't errors lol

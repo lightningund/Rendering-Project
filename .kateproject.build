@@ -3,23 +3,18 @@
     "target_sets": [
         {
             "cmake_config": "",
-            "directory": "%B",
+            "directory": "D:/CS_ALIAS/C++/Rendering_Project",
             "loaded_via_cmake": false,
             "name": "Target Set",
             "targets": [
                 {
-                    "build_cmd": "cmake -S . -B ./build/Makefile -G \"MinGW Makefiles\"",
-                    "name": "Create CMDs",
-                    "run_cmd": ""
-                },
-                {
-                    "build_cmd": "cmake -S . -B ./build -G \"Visual Studio 17 2022\" -T host=x64 -A x64",
-                    "name": "Setup MSVC",
+                    "build_cmd": "cmake -S . -B ./build -G Ninja",
+                    "name": "Setup",
                     "run_cmd": ""
                 },
                 {
                     "build_cmd": "cmake --build ./build --config Debug",
-                    "name": "MSVC Debug",
+                    "name": "Debug",
                     "run_cmd": "./build/Debug/Renderer.exe"
                 }
             ]

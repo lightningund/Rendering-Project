@@ -3,6 +3,7 @@ project(Renderer VERSION 0.1.0 LANGUAGES CXX)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(${PROJECT_NAME} main.cpp cell.cpp vec.cpp map.cpp ray.cpp textures.cpp display.cpp)
+add_compile_options(/FC)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 
