@@ -49,10 +49,14 @@ float radians(float deg) {
 	return (deg / 180.0) * PI;
 }
 
+static constexpr inline bool within_extent(int y, int ext) {
+	return ext < y && ext < (HEIGHT / 2) - y;
+}
+
 void draw_render() {
 	for (int y = 0; y < HEIGHT / 2; ++y) {
 		for (int x = 0; x < WIDTH; ++x) {
-			if (cols[x].extent < y && cols[x].extent < (HEIGHT / 2) - y) {
+			if (within_extent(y, cols[x].extent)) {
 				if (wall_textured) {
 					color_t color = get_tex(cols[x].tex_id, cols[x].extent, y, cols[x].t);
 					// display_set_pixel(x, y, fast_color_scale(color, 1 / cols[x].shade));
@@ -60,7 +64,7 @@ void draw_render() {
 				} else {
 					display_set_pixel(x, y, cols[x].col);
 				}
-			} else if (cols[x].prev_extent < y && cols[x].prev_extent < (HEIGHT / 2) - y) {
+			} else if (within_extent(y, cols[x].prev_extent)) {
 				display_set_pixel(x, y, BLACK);
 			}
 		}

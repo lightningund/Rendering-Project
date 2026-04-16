@@ -2,44 +2,25 @@
 	"version": 8,
 	"configurePresets": [
 		{
-			"name": "MSVC",
-			"displayName": "VS 2022 x64",
+			"name": "Ninja",
+			"displayName": "Ninja",
 			"description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
-			"generator": "Visual Studio 17 2022",
-			"toolset": "host=x64",
-			"architecture": "x64",
-			"binaryDir": "${sourceDir}/build/${presetName}",
-			"cacheVariables": {
-				"CMAKE_INSTALL_PREFIX": "${sourceDir}/build/install/${presetName}",
-				"CMAKE_C_COMPILER": "cl.exe",
-				"CMAKE_CXX_COMPILER": "cl.exe"
-			}
-		},
-		{
-			"name": "Makefile",
-			"displayName": "MinGW",
-			"description": "MinGW makefile",
-			"generator": "MinGW Makefiles",
+			"generator": "Ninja",
 			"binaryDir": "${sourceDir}/build/${presetName}"
 		}
 	],
 	"buildPresets": [
 		{
-			"name": "MSVC-debug",
-			"displayName": "VS 2022 x64 - Debug",
-			"configurePreset": "MSVC",
+			"name": "debug",
+			"displayName": "Debug",
+			"configurePreset": "Ninja",
 			"configuration": "Debug"
 		},
 		{
-			"name": "MSVC-release",
-			"displayName": "VS 2022 x64 - Release",
-			"configurePreset": "MSVC",
+			"name": "release",
+			"displayName": "Release",
+			"configurePreset": "Ninja",
 			"configuration": "Release"
-		},
-		{
-			"name": "Makefile",
-			"displayName": "Create makefiles",
-			"configurePreset": "Makefile"
 		}
 	]
 }
